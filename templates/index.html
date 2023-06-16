@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block head %}
+<title style="text-align: center">Students</title>
+{% endblock %} {% block body %}
+
+<h1 style="text-align: center">Students</h1>
+<div class="form" style="text-align: center">
+  <p>Add Student</p>
+  <form action="/" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required="true" />
+    <label for="password">Password:</label>
+    <input type="text" name="password" id="password" required="true" />
+    <label for="className">Class:</label>
+    <input type="text" name="className" id="className" required="true"/>
+    <input type="submit" value="Add Student" />
+  </form>
+</div>
+
+<br />
+
+<div>
+  <form action="/uploadStudent" method="POST" enctype="multipart/form-data">
+    <label for="file">File:</label>
+    <input type="file" id="file" name="file">
+    <button>Upload Student Information</button>
+  </form>
+</div>
+
+<br />
+
+<div>
+  <form action="/downloadStudents">
+    <button>Download Student Information</button>
+  </form>
+</div>
+
+  <br />
+  <div class="content">
+    {%if students|length<1%}
+    <h3>No Students found. Add a Student.</h3>
+    {%else%}
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Class</th>
+        <th>Action</th>
+      </tr>
+      {% for student in students %}
+      <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.password }}</td>
+        <td>{{ student.className }}</td>
+        <td>
+          <a href="/scores/{{student.name}}">Scores</a>
+          <br />
+          <a href="/deleteStudent/{{student.name}}">Delete</a>
+          <br />
+          <a href="/updateStudent/{{student.name}}">Update</a>
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+    {%endif%} {% endblock %}
+  </div>
+</div>

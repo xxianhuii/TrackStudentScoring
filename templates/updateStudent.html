@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block head %}
+<title>Update Student</title>
+{% endblock %} {% block body %}
+<div class="content">
+  <h1>Update Student</h1>
+
+  <div class="form">
+    <form action="/updateStudent/{{student.name}}" method="POST">
+      <label for="password">Password:</label>
+      <input
+        type="text"
+        name="password"
+        id="password"
+        value="{{student.password}}"
+      />
+      <br />
+      <label for="class">Class:</label>
+      <input
+        type="text"
+        name="className"
+        id="className"
+        value="{{student.className}}"
+      />
+      <br />
+      <input type="submit" value="Update Student" />
+      <button type="cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

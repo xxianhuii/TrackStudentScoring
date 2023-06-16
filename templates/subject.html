@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block head %}
+<title>Subject</title>
+{% endblock %} {% block body %}
+<div class="content">
+  <h1 style="text-align: center">Subject</h1>
+  <br />
+  <div style="width: 100%">
+    <form action="/uploadScore" method="POST" enctype="multipart/form-data">
+      <label for="file" style="width: 10%">File:</label>
+      <input type="file" id="file" name="file" style="width: 60%" />
+      <button style="width: 20%">Upload Scores</button>
+    </form>
+  </div>
+  <br />
+  <div>
+    <form action="/downloadScores">
+      <button>Download Scores Information</button>
+    </form>
+  </div>
+  <br />
+  {%if subjects|length<1%}
+  <h3>No subjects found.</h3>
+  {%else%}
+  <table>
+    <tr>
+      <th>Subject</th>
+      <th>Action</th>
+    </tr>
+    {% for subject in subjects %}
+    <tr>
+      <td>{{ subject.subject }}</td>
+      <td>
+        <a href="/scoresPerSubject/{{subject.subject}}">All Scores</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+  {%endif%}
+  <br />
+  <h1 style="text-align: center">Top Scorer</h1>
+  {%if top2|length<1%}
+  <h3>No scores found.</h3>
+  {%else%}
+  <table style="text-align: center">
+    <tr>
+      <th>Rank</th>
+      <th>Subject</th>
+      <th>Student Name</th>
+      <th>Score</th>
+      <th>Class</th>
+      <th>Password</th>
+    </tr>
+    {% for top in top2 %}
+    <tr>
+      <td>{{rank[loop.index0]}}</td>
+      <td>{{ top.subject}}</td>
+      <td>{{ top.name}}</td>
+      <td>{{ top.scoreDecimal}}</td>
+      <td>{{ top.student.className}}</td>
+      <td>{{ top.student.password}}</td>
+    </tr>
+    {%endfor%}
+  </table>
+  {%endif%} {% endblock %}
+  <br />
+</div>

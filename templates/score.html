@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block head %}
+<title>Scores</title>
+{% endblock %} {% block body %}
+<div class="content">
+  <h1>Scores</h1>
+  <div class="form">
+    <form action="/scores/{{name}}" method="POST">
+      <label for="subject">Subject:</label>
+      <input type="text" name="subject" id="subject" required="true" />
+      <br />
+      <label for="Score">Score:</label>
+      <input
+        type="number"
+        name="scoreDecimal"
+        id="scoreDecimal"
+        max="9999999999.999"
+        step=".001"
+        required="true"
+      />
+      <input type="hidden" name="name" id="name" value="{{name}}" />
+      <input type="submit" value="Add Score" />
+    </form>
+  </div>
+  <br />
+  {%if scores|length<1%}
+  <h3>No Scores are found. Add a Score.</h3>
+  {%else%}
+  <table>
+    <tr>
+      <th>Subject</th>
+      <th>Score</th>
+      <th>Action</th>
+    </tr>
+    {% for score in scores %}
+    <tr>
+      <td>{{ score.subject }}</td>
+      <td>{{ score.scoreDecimal }}</td>
+      <td>
+        <a href="/deleteScore/{{score.id}}">Delete</a>
+        <br />
+        <a href="/updateScore/{{score.id}}">Update</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+  {%endif%} {% endblock %}
+</div>
